@@ -30,6 +30,9 @@ def main() -> None:
     target = Path(os.environ.get("ENTRY_OUTPUT", "/output/entry.txt"))
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(line, encoding="utf-8")
+    written = target.read_text(encoding="utf-8")
+    if written != line:
+        raise ValueError("entry file read-back does not match the line")
 
 
 if __name__ == "__main__":
